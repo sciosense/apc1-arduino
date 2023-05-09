@@ -1,0 +1,70 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+# https://arduino.github.io/arduino-cli/0.21/library-specification/#keywordstxt-format
+# KEYWORD1 Classes, datatypes, and C++ keywords
+# KEYWORD2 Methods and functions
+# KEYWORD3 setup and loop functions, as well as the Serial keywords
+# LITERAL1 Constants
+# LITERAL2 Built-in variables (unused by default)
+
+
+#######################################
+# Classes, datatypes (KEYWORD1)
+#######################################
+APC1
+apc1
+Result
+ErrorCode
+AirQualityIndex_UBA
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+begin
+isConnected
+
+reset
+valid
+update
+setOperatingMode
+setMeasurementMode
+
+enableDebugging
+disableDebugging
+
+getPM_1_0
+getPM_2_5
+getPM_10
+getPMInAir_1_0
+getPMInAir_2_5
+getPMInAir_10
+getNoParticles_0_3
+getNoParticles_0_5
+getNoParticles_1_0
+getNoParticles_2_5
+getNoParticles_5_0
+getNoParticles_10
+getTVOC
+getECO2
+getNO2
+getCompT
+getCompRH
+getRawT
+getRawRH
+getRS0
+getRS1
+getRS2
+getRS3
+getAQI
+getFirmwareVersion
+getError
+
+######################################
+# Constants (LITERAL1)
+#######################################
+NotAllowed
+IOError
+ChecksumError
+Invalid
+Ok
