@@ -59,12 +59,12 @@ interfaces run at 3.3 V TTL level.
 This example shows how to wire a [ESP32DevKitC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html#get-started-esp32-devkitc-board-front) 
 with the APC1 for UART communication.
 
-| APC1 |   ESP32   |
-|:----:|:---------:|
-| VDD  |    5V     |
-| GND  |    GND    |
-| TX  | RX2 (16)  |
-| RX  | TX2 (17)  |
+|  APC1   |     ESP32 |
+|:-------:|:---------:|
+| VDD (1) |      5V   |
+| GND (2) |      GND  |
+| RX (4)  | TX2 (17)  |
+| TX (5)  | RX2 (16)  |
 
 <img src="images/uart_pinout_esp32.png" width="1000">
 
