@@ -17,10 +17,14 @@ minimal overall BOM costs.
 The APC1 is a proven, maintenance-free technology, designed for high volumes and
 reliability.
 
+> :warning: This library only supports reading the APC1 via UART.
+
+
 ## Links
 * [Further information about the APC1](https://www.sciosense.com/products/environmental-sensors/apc1/)  
 * [Datasheet](https://www.sciosense.com/wp-content/uploads/documents/SC-001581-DS-4-APC1-Datasheet.pdf)
 * Buy the APC1 on [Mouser](https://mou.sr/3RccQwh) or [Digikey](https://www.digikey.nl/short/2v43qfh4)
+* Buy the APC1 evaluation kit on [Mouser](https://mou.sr/3LfXiUG)
  
 ## Prerequisites
 It is assumed that
@@ -33,7 +37,7 @@ It is assumed that
 
 ## Installation
 
-### Installation via Arduino Library Manager (coming soon)
+### Installation via Arduino Library Manager
 - In the Arduino IDE, navigate to the Arduino Library Manager on the left side (or, alternatively, select Sketch > 
 Include Library > Manage Libraries...)
 - Search for `ScioSense_APC1`
@@ -48,25 +52,26 @@ Include Library > Manage Libraries...)
 ## Wiring
 
 ### General
-Please make sure that you use the correct supply voltage: The APC1 runs at VDD = 5.0 V.
+Please make sure that you use the correct supply voltage: The supply voltage is VDD = 5.0 V and the communication
+interfaces run at 3.3 V TTL level.
 
-### Example with ESP32 (I2C)
+### Example with ESP32 (UART)
 This example shows how to wire a [ESP32DevKitC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html#get-started-esp32-devkitc-board-front) 
-with the APC1 for I2C communication.
+with the APC1 for UART communication.
 
-| ENS21x flex foil | ESP32 |
-|:----------------:|:-----:|
-|       VDD        |  5V   |
-|       GND        |  GND  |
-|       SDA        |  G21  |
-|       SCL        |  G22  |
+| APC1 |   ESP32   |
+|:----:|:---------:|
+| VDD  |    5V     |
+| GND  |    GND    |
+| TX  | RX2 (16)  |
+| RX  | TX2 (17)  |
 
-<img src="images/i2c_pinout_esp32.png" width="1000">
+<img src="images/uart_pinout_esp32.png" width="1000">
 
 ## Build an example
 To build an example sketch
  - (Re)start Arduino.
- - Open File > Examples > Examples from Custom Libraries > ScioSense_APC1 > 01_Basic (or any other of the provided 
+ - Open File > Examples > Examples from Custom Libraries > ScioSense_APC1 > 01_Basic_UART (or any other of the provided 
 examples you wish to run)
  - Make sure Tools > Board lists the correct board.
  - Select Sketch > Verify/Compile.

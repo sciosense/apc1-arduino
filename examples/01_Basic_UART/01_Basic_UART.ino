@@ -22,7 +22,7 @@ void setup()
     //SoftwareSerial softwareSerial =  SoftwareSerial(rxPin, txPin);
     //apc1.begin(softwareSerial);
 
-    // If your board supports a second hardware serial bus (like the ESP32), then use Serial2
+    // If your board supports a second hardware serial bus (like the ESP32), then use Serial1 or Serial2
     Serial2.begin(9600, SERIAL_8N1, rxPin, txPin);
     apc1.begin(Serial2);
 
