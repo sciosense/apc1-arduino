@@ -31,8 +31,10 @@ It is assumed that
  - The Arduino IDE has been installed.
    If not, refer to "Install the Arduino Desktop IDE" on the
    [Arduino site](https://www.arduino.cc/en/Guide/HomePage).
- - Install your board. This library was tested with the ESP32. Here is a step-by-step guide for board installation 
-(coming soon).
+- The library directory is at its default location. Normally this is `C:\Users\[your_username]\Documents\Arduino\libraries`.
+
+You might need to add your board to the Arduino IDE. This library was tested with the [Espressif ESP32](https://www.espressif.com/en/products/socs/esp32). 
+For the installation of the ESP32 in the Arduino IDE, see [Arduino ESP32 Installation](https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html)
 
 
 ## Installation
