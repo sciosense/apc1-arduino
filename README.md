@@ -21,8 +21,8 @@ reliability.
 
 
 ## Links
-* [Further information about the APC1](https://www.sciosense.com/products/environmental-sensors/apc1/)  
-* [Datasheet](https://www.sciosense.com/wp-content/uploads/documents/SC-001581-DS-4-APC1-Datasheet.pdf)
+* [Further information about the APC1](https://www.sciosense.com/apc1-air-quality-combo-sensor/)
+* [Datasheet](https://www.sciosense.com/wp-content/uploads/2023/12/APC1-Datasheet.pdf)
 * Buy the APC1 on [Mouser](https://mou.sr/3RccQwh) or [Digikey](https://www.digikey.nl/short/2v43qfh4)
 * Buy the APC1 evaluation kit on [Mouser](https://mou.sr/3LfXiUG)
  
