@@ -1,5 +1,12 @@
+/* **************************************************
+*   
+*   Example Code for running ScioSense APC1 on UART
+*       tested with Arduino UNO and ESP32
+*
+*  **************************************************
+*/
+
 #include <Arduino.h>
-#include <SoftwareSerial.h>
 
 #include <apc1.h>
 
@@ -10,6 +17,12 @@ using namespace ScioSense;
 
 APC1 apc1;
 
+// If your board only has one hardware serial bus, use SoftwareSerial
+#ifndef ESP32
+  #include <SoftwareSerial.h>
+  SoftwareSerial softwareSerial = SoftwareSerial(rxPin, txPin);
+#endif
+
 void setup()
 {
     Serial.begin(9600);
@@ -18,13 +31,16 @@ void setup()
     // Enable Debug if needed
     //apc1.enableDebugging(Serial);
 
-    // If your board only has one hardware serial bus use SoftwareSerial (uncomment the following two lines):
-    //SoftwareSerial softwareSerial =  SoftwareSerial(rxPin, txPin);
-    //apc1.begin(softwareSerial);
-
-    // If your board supports a second hardware serial bus (like the ESP32), then use Serial1 or Serial2
-    Serial2.begin(9600, SERIAL_8N1, rxPin, txPin);
-    apc1.begin(Serial2);
+    // If your board supports a second hardware serial bus (like the ESP32)...
+    #ifdef ESP32
+      // ...then use Serial1 or Serial2
+      Serial2.begin(9600, SERIAL_8N1, rxPin, txPin);
+      apc1.begin(Serial2);
+    #else
+      // ...otherwise go for SoftwareSerial
+      softwareSerial.begin(9600);
+      apc1.begin(softwareSerial);
+    #endif
 
     if (apc1.isConnected() == false)
     {
