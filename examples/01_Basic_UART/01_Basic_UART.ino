@@ -1,5 +1,5 @@
 /* **************************************************
-*   
+*
 *   Example Code for running ScioSense APC1 on UART
 *       tested with Arduino UNO and ESP32
 *
@@ -9,8 +9,6 @@
 #include <Arduino.h>
 
 #include <apc1.h>
-
-using namespace ScioSense;
 
 #define rxPin 16
 #define txPin 17
@@ -28,33 +26,44 @@ void setup()
     Serial.begin(9600);
     Serial.println("");
 
-    // Enable Debug if needed
-    //apc1.enableDebugging(Serial);
-
     // If your board supports a second hardware serial bus (like the ESP32)...
     #ifdef ESP32
       // ...then use Serial1 or Serial2
       Serial2.begin(9600, SERIAL_8N1, rxPin, txPin);
-      apc1.begin(Serial2);
+      apc1.begin(&Serial2);
     #else
       // ...otherwise go for SoftwareSerial
       softwareSerial.begin(9600);
-      apc1.begin(softwareSerial);
+      apc1.begin(&softwareSerial);
     #endif
 
-    if (apc1.isConnected() == false)
+    while (apc1.init() == false)
     {
         Serial.println("Error -- The APC1 is not connected.");
-        while(1);
+        delay(1000);
     }
 
-    Serial.print("APC1 FW version: ");
-    Serial.println(apc1.getFirmwareVersion());
+    if (apc1.getFirmwareVersion()>34)
+    {
+        Serial.print("Module Name: ");
+        Serial.print((char*)apc1.moduleName);
+
+        Serial.print(", FW version: ");
+        Serial.print(apc1.fwVersion);
+
+        Serial.print(", Serial No.: ");
+        Serial.println((unsigned long)apc1.serialNumber);
+    }
+    else
+    {
+        Serial.print("APC1 FW version: ");
+        Serial.println(apc1.getFirmwareVersion());
+    }
 }
 
 void loop()
 {
-    if (apc1.update() == APC1::Result::Ok)
+    if (apc1.update() == RESULT_OK)
     {
         Serial.print("PM1.0: ");
         Serial.println(apc1.getPM_1_0());
@@ -123,8 +132,6 @@ void loop()
         Serial.println(apc1.getRS3());
 
         Serial.print("AQI: ");
-        Serial.print(apc1.getAQIString());
-        Serial.print(" ");
         Serial.println((uint8_t)apc1.getAQI());
 
         Serial.print("Error code: ");
