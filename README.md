@@ -17,12 +17,9 @@ minimal overall BOM costs.
 The APC1 is a proven, maintenance-free technology, designed for high volumes and
 reliability.
 
-> :warning: This library only supports reading the APC1 via UART.
-
-
 ## Links
 * [Further information about the APC1](https://www.sciosense.com/apc1-air-quality-combo-sensor/)
-* [Datasheet](https://www.sciosense.com/wp-content/uploads/2023/12/APC1-Datasheet.pdf)
+* [Datasheet](https://www.sciosense.com/wp-content/uploads/2024/07/APC1-Datasheet.pdf)
 * Buy the APC1 on [Mouser](https://mou.sr/3RccQwh) or [Digikey](https://www.digikey.nl/short/2v43qfh4)
 * Buy the APC1 evaluation kit on [Mouser](https://mou.sr/3LfXiUG)
  
