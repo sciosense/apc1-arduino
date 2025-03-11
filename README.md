@@ -54,18 +54,34 @@ Include Library > Manage Libraries...)
 Please make sure that you use the correct supply voltage: The supply voltage is VDD = 5.0 V and the communication
 interfaces run at 3.3 V TTL level.
 
-### Example with ESP32 (UART)
+### Example with ESP32
 This example shows how to wire a [ESP32DevKitC](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html#get-started-esp32-devkitc-board-front) 
-with the APC1 for UART communication.
+with the APC1 for UART and I²C communication.
 
-|  APC1   |     ESP32 |
-|:-------:|:---------:|
-| VDD (1) |      5V   |
-| GND (2) |      GND  |
-| RX (4)  | TX2 (17)  |
-| TX (5)  | RX2 (16)  |
+|  APC1     |ESP32 UART | ESP32 I²C |
+|:---------:|:---------:|:---------:|
+| VDD (1)   |      5V   |    5V     |
+| GND (2)   |      GND  |    GND    |
+| RX/SCL (4)| TX2 (17)  |    22     |
+| TX/SDA (5)| RX2 (16)  |    21     |
 
-<img src="images/uart_pinout_esp32.png" width="1000">
+<img src="images/ESP32_APC1_UART.png" width="500">
+<img src="images/ESP32_APC1_I2C.png" width="500">
+
+### Example with Arduino NANO
+This example shows how to wire a [Arduino NANO ](https://store.arduino.cc/products/arduino-nano) 
+with the APC1 for UART and I²C communication.
+
+|  APC1     |NANO UART | NANO I²C |
+|:---------:|:---------:|:---------:|
+| VDD (1)   |      5V   |    5V     |
+| GND (2)   |      GND  |    GND    |
+| RX/SCL (4)|    A3     |    A5    |
+| TX/SDA (5)|    A2     |    A4     |
+
+<img src="images/NANO_APC1_UART.png" width="500">
+<img src="images/NANO_APC1_I2C.png" width="500">
+
 
 ## Build an example
 To build an example sketch
@@ -83,4 +99,4 @@ This library is developed for ScioSense by [at² GmbH](https://www.at2-software.
 
 @at2software
 
-### ScioSense is a Joint Venture of ams AG 
+

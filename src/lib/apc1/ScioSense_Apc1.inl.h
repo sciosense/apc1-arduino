@@ -14,12 +14,12 @@
 #define memset(a, b, s)     for(size_t i = 0; i < s; i++) {a[i] = b;}
 #define memcpy(a, b, s)     for(size_t i = 0; i < s; i++) {a[i] = b[i];}
 
-inline uint16_t Apc1_GetValueOf16(const uint8_t* data, const uint16_t resultAddress)
+static inline uint16_t Apc1_GetValueOf16(const uint8_t* data, const uint16_t resultAddress)
 {
     return ((uint16_t)data[resultAddress] << 8) + (uint16_t)data[resultAddress + 1];
 }
 
-inline uint32_t Apc1_GetValueOf32(uint8_t* data, const uint16_t resultAddress)
+static inline uint32_t Apc1_GetValueOf32(uint8_t* data, const uint16_t resultAddress)
 {
     return  ((uint32_t)data[resultAddress + 0] << 24)
           + ((uint32_t)data[resultAddress + 1] << 16)
@@ -27,7 +27,7 @@ inline uint32_t Apc1_GetValueOf32(uint8_t* data, const uint16_t resultAddress)
           +  (uint32_t)data[resultAddress + 3];
 }
 
-inline uint64_t Apc1_GetValueOf64(uint8_t* data, const uint16_t resultAddress)
+static inline uint64_t Apc1_GetValueOf64(uint8_t* data, const uint16_t resultAddress)
 {
     return  ((uint64_t)data[resultAddress + 0] << 56)
           + ((uint64_t)data[resultAddress + 1] << 48)
@@ -39,7 +39,7 @@ inline uint64_t Apc1_GetValueOf64(uint8_t* data, const uint16_t resultAddress)
           +  (uint64_t)data[resultAddress + 7];
 }
 
-inline Result Apc1_Read(ScioSense_Apc1* apc1, const uint16_t address, uint8_t* data, const size_t size)
+static inline Result Apc1_Read(ScioSense_Apc1* apc1, const uint16_t address, uint8_t* data, const size_t size)
 {
     if (apc1->io.protocol == APC1_PROTOCOL_UART)
     {
@@ -53,7 +53,7 @@ inline Result Apc1_Read(ScioSense_Apc1* apc1, const uint16_t address, uint8_t* d
     return RESULT_IO_ERROR;
 }
 
-inline Result Apc1_Write(ScioSense_Apc1* apc1, const uint16_t address, uint8_t* data, const size_t size)
+static inline Result Apc1_Write(ScioSense_Apc1* apc1, const uint16_t address, uint8_t* data, const size_t size)
 {
     if (apc1->io.protocol == APC1_PROTOCOL_UART)
     {
@@ -67,7 +67,7 @@ inline Result Apc1_Write(ScioSense_Apc1* apc1, const uint16_t address, uint8_t* 
     return RESULT_IO_ERROR;
 }
 
-inline Result Apc1_Invoke(ScioSense_Apc1* apc1, Apc1_Command command, uint8_t* resultBuf, const size_t size)
+static inline Result Apc1_Invoke(ScioSense_Apc1* apc1, Apc1_Command command, uint8_t* resultBuf, const size_t size)
 {
     Result result;
 
@@ -93,48 +93,48 @@ inline Result Apc1_Invoke(ScioSense_Apc1* apc1, Apc1_Command command, uint8_t* r
     return result;
 }
 
-inline Result Apc1_InvokePassiveMeasurement(ScioSense_Apc1* apc1)
+static inline Result Apc1_InvokePassiveMeasurement(ScioSense_Apc1* apc1)
 {
-    const static Apc1_Command command = APC1_COMMAND_PASSIVE_MEASUREMENT;
+    static const Apc1_Command command = APC1_COMMAND_PASSIVE_MEASUREMENT;
 
     return Apc1_Invoke(apc1, command, NULL, 0);
 }
 
-inline Result Apc1_InvokeSetIdle(ScioSense_Apc1* apc1)
+static inline Result Apc1_InvokeSetIdle(ScioSense_Apc1* apc1)
 {
-    const static Apc1_Command command = APC1_COMMAND_SET_IDLE;
+    static const Apc1_Command command = APC1_COMMAND_SET_IDLE;
     uint8_t buf[APC1_COMMAND_RESPONSE_DEFAULT_LENGTH];
 
     return Apc1_Invoke(apc1, command, buf, APC1_COMMAND_RESPONSE_DEFAULT_LENGTH);
 }
 
-inline Result Apc1_InvokeSetWake(ScioSense_Apc1* apc1)
+static inline Result Apc1_InvokeSetWake(ScioSense_Apc1* apc1)
 {
-    const static Apc1_Command command = APC1_COMMAND_SET_WAKE;
+    static const Apc1_Command command = APC1_COMMAND_SET_WAKE;
 
     return Apc1_Invoke(apc1, command, NULL, 0);
 }
 
-inline Result Apc1_InvokeSetMeasurementModeActive(ScioSense_Apc1* apc1)
+static inline Result Apc1_InvokeSetMeasurementModeActive(ScioSense_Apc1* apc1)
 {
-    const static Apc1_Command command = APC1_COMMAND_SET_MEASUREMENT_MODE_ACTIVE;
+    static const Apc1_Command command = APC1_COMMAND_SET_MEASUREMENT_MODE_ACTIVE;
     uint8_t buf[APC1_COMMAND_RESPONSE_DEFAULT_LENGTH];
 
     return Apc1_Invoke(apc1, command, buf, APC1_COMMAND_RESPONSE_DEFAULT_LENGTH);
 }
 
-inline Result Apc1_InvokeSetMeasurementModePassive(ScioSense_Apc1* apc1)
+static inline Result Apc1_InvokeSetMeasurementModePassive(ScioSense_Apc1* apc1)
 {
-    const static Apc1_Command command = APC1_COMMAND_SET_MEASUREMENT_MODE_PASSIVE;
+    static const Apc1_Command command = APC1_COMMAND_SET_MEASUREMENT_MODE_PASSIVE;
     uint8_t buf[APC1_COMMAND_RESPONSE_DEFAULT_LENGTH];
 
     return Apc1_Invoke(apc1, command, buf, APC1_COMMAND_RESPONSE_DEFAULT_LENGTH);
 }
 
-inline Result Apc1_InvokeReadSensorVersion(ScioSense_Apc1* apc1)
+static inline Result Apc1_InvokeReadSensorVersion(ScioSense_Apc1* apc1)
 {
     Result result;
-    const static Apc1_Command command = APC1_COMMAND_READ_SENSOR_VERSION;
+    static const Apc1_Command command = APC1_COMMAND_READ_SENSOR_VERSION;
     uint8_t buf[APC1_COMMAND_RESPONSE_SENSOR_VERSION_LENGTH];
 
     result = Apc1_Invoke(apc1, command, buf, APC1_COMMAND_RESPONSE_SENSOR_VERSION_LENGTH);
@@ -153,7 +153,7 @@ inline Result Apc1_InvokeReadSensorVersion(ScioSense_Apc1* apc1)
     return result;
 }
 
-inline Result Apc1_Reset(ScioSense_Apc1* apc1)
+static inline Result Apc1_Reset(ScioSense_Apc1* apc1)
 {
     Result result;
 
@@ -198,7 +198,7 @@ inline Result Apc1_Reset(ScioSense_Apc1* apc1)
     return result;
 }
 
-inline Result Apc1_Update(ScioSense_Apc1* apc1)
+static inline Result Apc1_Update(ScioSense_Apc1* apc1)
 {
     Result result;
 
@@ -225,7 +225,7 @@ inline Result Apc1_Update(ScioSense_Apc1* apc1)
     return result;
 }
 
-inline Result Apc1_ReadSensorVersion(ScioSense_Apc1* apc1)
+static inline Result Apc1_ReadSensorVersion(ScioSense_Apc1* apc1)
 {
     Result result;
 
@@ -249,7 +249,7 @@ inline Result Apc1_ReadSensorVersion(ScioSense_Apc1* apc1)
     return result;
 }
 
-inline Result Apc1_SetOperatingMode(ScioSense_Apc1* apc1, const Apc1_OperatingMode mode)
+static inline Result Apc1_SetOperatingMode(ScioSense_Apc1* apc1, const Apc1_OperatingMode mode)
 {
     Result result;
 
@@ -265,7 +265,7 @@ inline Result Apc1_SetOperatingMode(ScioSense_Apc1* apc1, const Apc1_OperatingMo
     return result;
 }
 
-inline Result Apc1_SetMeasurementMode(ScioSense_Apc1* apc1, const Apc1_MeasurementMode mode)
+static inline Result Apc1_SetMeasurementMode(ScioSense_Apc1* apc1, const Apc1_MeasurementMode mode)
 {
     Result result;
 
@@ -293,142 +293,142 @@ inline Result Apc1_SetMeasurementMode(ScioSense_Apc1* apc1, const Apc1_Measureme
     return result;
 }
 
-inline bool Apc1_IsConnected(ScioSense_Apc1* apc1)
+static inline bool Apc1_IsConnected(ScioSense_Apc1* apc1)
 {
     return apc1->fwVersion != 0;
 }
 
-inline uint16_t Apc1_GetPM_1_0(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetPM_1_0(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_PM_1_0);
 }
 
-inline uint16_t Apc1_GetPM_2_5(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetPM_2_5(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_PM_2_5);
 }
 
-inline uint16_t Apc1_GetPM_10(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetPM_10(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_PM_10);
 }
 
-inline uint16_t Apc1_GetPMInAir_1_0(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetPMInAir_1_0(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_PMINAIR_1_0);
 }
 
-inline uint16_t Apc1_GetPMInAir_2_5(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetPMInAir_2_5(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_PMINAIR_2_5);
 }
 
-inline uint16_t Apc1_GetPMInAir_10(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetPMInAir_10(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_PMINAIR_10);
 }
 
-inline uint16_t Apc1_GetNoParticles_0_3(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetNoParticles_0_3(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_NOPARTICLES_0_3);
 }
 
-inline uint16_t Apc1_GetNoParticles_0_5(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetNoParticles_0_5(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_NOPARTICLES_0_5);
 }
 
-inline uint16_t Apc1_GetNoParticles_1_0(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetNoParticles_1_0(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_NOPARTICLES_1_0);
 }
 
-inline uint16_t Apc1_GetNoParticles_2_5(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetNoParticles_2_5(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_NOPARTICLES_2_5);
 }
 
-inline uint16_t Apc1_GetNoParticles_5_0(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetNoParticles_5_0(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_NOPARTICLES_5_0);
 }
 
-inline uint16_t Apc1_GetNoParticles_10(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetNoParticles_10(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_NOPARTICLES_10);
 }
 
-inline uint16_t Apc1_GetTVOC(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetTVOC(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_TVOC);
 }
 
-inline uint16_t Apc1_GetECO2(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetECO2(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_ECO2);
 }
 
-inline uint16_t Apc1_GetNO2(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetNO2(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_NO2);
 }
 
-inline float Apc1_GetCompT(ScioSense_Apc1* apc1)
+static inline float Apc1_GetCompT(ScioSense_Apc1* apc1)
 {
     return (float)Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_T_COMP) * 0.1f;
 }
 
-inline float Apc1_GetCompRH(ScioSense_Apc1* apc1)
+static inline float Apc1_GetCompRH(ScioSense_Apc1* apc1)
 {
     return (float)Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_RH_COMP) * 0.1f;
 }
 
-inline float Apc1_GetRawT(ScioSense_Apc1* apc1)
+static inline float Apc1_GetRawT(ScioSense_Apc1* apc1)
 {
     return (float)Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_T_RAW) * 0.1f;
 }
 
-inline float Apc1_GetRawRH(ScioSense_Apc1* apc1)
+static inline float Apc1_GetRawRH(ScioSense_Apc1* apc1)
 {
     return (float)Apc1_GetValueOf16(apc1->measurementData, APC1_RESULT_ADDRESS_RH_RAW) * 0.1f;
 }
 
-inline uint32_t Apc1_GetRS0(ScioSense_Apc1* apc1)
+static inline uint32_t Apc1_GetRS0(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf32(apc1->measurementData, APC1_RESULT_ADDRESS_RS0);
 }
 
-inline uint32_t Apc1_GetRS1(ScioSense_Apc1* apc1)
+static inline uint32_t Apc1_GetRS1(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf32(apc1->measurementData, APC1_RESULT_ADDRESS_RS1);
 }
 
-inline uint32_t Apc1_GetRS2(ScioSense_Apc1* apc1)
+static inline uint32_t Apc1_GetRS2(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf32(apc1->measurementData, APC1_RESULT_ADDRESS_RS2);
 }
 
-inline uint32_t Apc1_GetRS3(ScioSense_Apc1* apc1)
+static inline uint32_t Apc1_GetRS3(ScioSense_Apc1* apc1)
 {
     return Apc1_GetValueOf32(apc1->measurementData, APC1_RESULT_ADDRESS_RS3);
 }
 
-inline AirQualityIndex_UBA Apc1_GetAQI(ScioSense_Apc1* apc1)
+static inline AirQualityIndex_UBA Apc1_GetAQI(ScioSense_Apc1* apc1)
 {
     return apc1->measurementData[APC1_RESULT_ADDRESS_AQI];
 }
 
-inline uint16_t Apc1_GetFirmwareVersion(ScioSense_Apc1* apc1)
+static inline uint16_t Apc1_GetFirmwareVersion(ScioSense_Apc1* apc1)
 {
     return apc1->fwVersion;
 }
 
-inline Apc1_ErrorCode Apc1_GetError(ScioSense_Apc1* apc1)
+static inline Apc1_ErrorCode Apc1_GetError(ScioSense_Apc1* apc1)
 {
     return apc1->measurementData[APC1_RESULT_ADDRESS_ERROR_CODE];
 }
 
-inline Result Apc1_CheckData(const uint8_t* data, const Apc1_CommandResponse& size)
+static inline Result Apc1_CheckData(const uint8_t* data, const Apc1_CommandResponse size)
 {
     if (size < 3)
     {
@@ -448,7 +448,7 @@ inline Result Apc1_CheckData(const uint8_t* data, const Apc1_CommandResponse& si
     return (checksum == calculatedChecksum) ? RESULT_OK : RESULT_CHECKSUM_ERROR;
 }
 
-inline Result Apc1_CheckCommandResponse(const Apc1_Command command, const uint8_t* data, const Apc1_CommandResponse& size)
+static inline Result Apc1_CheckCommandResponse(const Apc1_Command command, const uint8_t* data, const Apc1_CommandResponse size)
 {
     Result result = RESULT_INVALID;
 
@@ -467,7 +467,7 @@ inline Result Apc1_CheckCommandResponse(const Apc1_Command command, const uint8_
     return result;
 }
 
-inline Result Apc1_CheckMeasurementData(const uint8_t* data)
+static inline Result Apc1_CheckMeasurementData(const uint8_t* data)
 {
     Result result = RESULT_INVALID;
 
